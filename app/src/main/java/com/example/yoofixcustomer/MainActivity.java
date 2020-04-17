@@ -1,25 +1,32 @@
 package com.example.yoofixcustomer;
 
+import android.os.Bundle;
+import android.view.View;
+
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.LinearSnapHelper;
 import androidx.recyclerview.widget.RecyclerView;
 
-import android.os.Bundle;
-import android.view.View;
-
 import com.example.yoofixcustomer.adapters.CarouselAdapter;
+import com.example.yoofixcustomer.adapters.MessageAdapter;
+import com.example.yoofixcustomer.models.Message;
+import com.example.yoofixcustomer.models.TextMessage;
 
 public class MainActivity extends AppCompatActivity {
     private RecyclerView carouselRecyclerView;
     private CarouselAdapter carouselAdapter;
     private RecyclerView.LayoutManager layoutManager;
+    private RecyclerView messageRecyclerView;
+    private MessageAdapter messageAdapater;
+    private RecyclerView.LayoutManager messageLayoutManager;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.fragment_beranda);
 
+        // Init carousel
         carouselRecyclerView = findViewById(R.id.carousel_recycler_view);
 
         layoutManager = new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false);
@@ -65,5 +72,18 @@ public class MainActivity extends AppCompatActivity {
         int carouselWidthPixel = (int) (this.getResources().getDisplayMetrics().widthPixels * 0.9f);
         float carouselHintPercent = 0.01f;
         carouselRecyclerView.addItemDecoration(new CarouselItemDecorator(this, carouselWidthPixel, carouselHintPercent));
+        //
+
+        // Init chat
+        messageRecyclerView = findViewById(R.id.message_recycler_view);
+
+        messageLayoutManager = new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false);
+        messageRecyclerView.setLayoutManager(messageLayoutManager);
+
+        Message[] messages = {new TextMessage(Message.MESSAGE_IN, "Jasa apa yang kamu butuhkan?"), new TextMessage(Message.MESSAGE_OUT, "Perawatan AC")};
+        messageAdapater = new MessageAdapter(messages);
+        messageRecyclerView.setAdapter(messageAdapater);
+        //
+
     }
 }

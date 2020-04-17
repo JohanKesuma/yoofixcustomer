@@ -1,7 +1,6 @@
 package com.example.yoofixcustomer.adapters;
 
 import android.content.Context;
-import android.graphics.drawable.Drawable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -25,7 +24,7 @@ public class CarouselAdapter extends RecyclerView.Adapter<CarouselAdapter.Carous
     @NonNull
     @Override
     public CarouseViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.carousel_layout, parent, false);
+        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.adapter_carousel, parent, false);
 
         return new CarouseViewHolder(view);
     }
