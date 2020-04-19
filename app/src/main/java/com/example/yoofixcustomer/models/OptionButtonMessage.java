@@ -1,27 +1,25 @@
 package com.example.yoofixcustomer.models;
 
-import android.widget.Button;
-
 /**
  * Pesan yang berisi pilihan
  */
 public class OptionButtonMessage extends Message {
-    private Button[] optionButtons;
-
-    public OptionButtonMessage(int messageType, Button[] optionButtons) {
-        super(messageType);
-        this.optionButtons = optionButtons;
-    }
+    private OptionButton[] optionButtons;
 
     public OptionButtonMessage(int messageType) {
         super(messageType);
     }
 
-    public Button[] getOptionButtons() {
+    public OptionButtonMessage(int messageType, OptionButton[] options) {
+        super(messageType);
+        this.optionButtons = options;
+    }
+
+    public OptionButton[] getOptionButtons() {
         return optionButtons;
     }
 
-    public void setOptionButtons(Button[] optionButtons) {
+    public void setOptionButtons(OptionButton[] optionButtons) {
         this.optionButtons = optionButtons;
     }
 }
