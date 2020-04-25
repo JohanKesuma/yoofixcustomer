@@ -2,4 +2,5 @@
     <string name="app_name">Yoofix Customer</string>
     <string name="beranda_welcome_text">Selamat datang di Yoofix, percayakan AC kamu pada kami</string>
     <string name="chat_warning_text">Perhatian! harga di bawah hanyalah estimasi, dimohon tidak membayar tagihan di luar aplikasi</string>
+    <string name="map_order_header">PILIH LOKASI PENGERJAAN</string>
 </resources>

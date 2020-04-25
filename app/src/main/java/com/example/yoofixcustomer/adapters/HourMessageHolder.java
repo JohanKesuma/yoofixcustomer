@@ -58,6 +58,7 @@ public class HourMessageHolder extends BaseMessageHolder {
                 hourMessage.onClick(hourButton, hourOfDay + ":" + minute);
             }
         }, hour, minute, true);
+
         timePickerDialog.show();
     }
 }

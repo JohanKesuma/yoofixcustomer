@@ -27,7 +27,7 @@
                 android:fontFamily="@font/fredokaone_regular"
                 android:text="Yoofix"
                 android:textColor="#ffffff"
-                android:textSize="30dp" />
+                android:textSize="30sp" />
 
         </RelativeLayout>
     </androidx.appcompat.widget.Toolbar>
@@ -58,5 +58,28 @@
         android:id="@+id/message_recycler_view"
         android:layout_width="match_parent"
         android:layout_height="match_parent" />
+
+<!--    <RelativeLayout-->
+<!--        android:orientation="horizontal"-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="60dp"-->
+<!--        android:layout_alignParentBottom="true"-->
+<!--        android:background="@drawable/rectangle_chat_pink_bottomnav">-->
+
+<!--        <ImageView-->
+<!--            android:layout_width="wrap_content"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:src="@drawable/ic_icon_navigate_next"-->
+<!--            android:maxWidth="25dp"-->
+<!--            android:maxHeight="25dp"-->
+<!--            android:scaleType="fitCenter"-->
+<!--            android:adjustViewBounds="true"-->
+<!--            android:layout_alignParentRight="true"-->
+<!--            android:layout_centerInParent="true"-->
+<!--            android:gravity="center_vertical"-->
+<!--            android:layout_marginEnd="20dp">-->
+<!--        </ImageView>-->
+
+<!--    </RelativeLayout>-->
 
 </LinearLayout>
