@@ -1,8 +1,10 @@
 package com.example.yoofixcustomer.activities;
 
-import android.app.Activity;
+import android.Manifest;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.IntentSender;
+import android.content.pm.PackageManager;
 import android.location.Location;
 import android.os.Bundle;
 import android.os.Looper;
@@ -12,7 +14,10 @@ import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.ActivityCompat;
+import androidx.core.content.ContextCompat;
 
 import com.example.yoofixcustomer.R;
 import com.example.yoofixcustomer.utils.GeoUtil;
@@ -20,7 +25,6 @@ import com.google.android.gms.common.api.ResolvableApiException;
 import com.google.android.gms.location.FusedLocationProviderClient;
 import com.google.android.gms.location.LocationCallback;
 import com.google.android.gms.location.LocationRequest;
-import com.google.android.gms.location.LocationResult;
 import com.google.android.gms.location.LocationServices;
 import com.google.android.gms.location.LocationSettingsRequest;
 import com.google.android.gms.location.LocationSettingsResponse;
@@ -30,7 +34,6 @@ import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.LatLng;
-import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
@@ -39,7 +42,8 @@ import java.util.Locale;
 
 public class OrderMapActivity extends AppCompatActivity implements OnMapReadyCallback {
 
-    private final int REQUEST_CHECK_SETTINGS = 1;
+    private static final int REQUEST_CHECK_SETTINGS = 1;
+    private static final int LOCATION_PERMISSION_REQUEST_CODE = 2;
 
     private GoogleMap gMap;
     private FusedLocationProviderClient fusedLocationClient;
@@ -56,7 +60,48 @@ public class OrderMapActivity extends AppCompatActivity implements OnMapReadyCal
 
         addressTextView = findViewById(R.id.location_address_text_view);
 
-        createLocationRequest();
+        // cek izin lokasi
+        if (ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION)
+                == PackageManager.PERMISSION_GRANTED) {
+            createLocationRequest();
+        } else {
+            if (ActivityCompat.shouldShowRequestPermissionRationale(this,
+                    Manifest.permission.ACCESS_FINE_LOCATION)) {
+
+                // Show an explanation to the user *asynchronously* -- don't block
+                // this thread waiting for the user's response! After the user
+                // sees the explanation, try again to request the permission.
+                new AlertDialog.Builder(this)
+                        .setTitle("Izin Akses Lokasi")
+                        .setMessage("Lokasi diiperlukan")
+                        .setPositiveButton(R.string.ok, new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialogInterface, int i) {
+                                //Prompt the user once explanation has been shown
+                                ActivityCompat.requestPermissions(OrderMapActivity.this,
+                                        new String[]{Manifest.permission.ACCESS_FINE_LOCATION},
+                                        LOCATION_PERMISSION_REQUEST_CODE);
+                            }
+                        })
+                        .create()
+                        .show();
+            } else {
+
+                ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.ACCESS_FINE_LOCATION}, LOCATION_PERMISSION_REQUEST_CODE);
+            }
+        }
+    }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        if (requestCode != LOCATION_PERMISSION_REQUEST_CODE) {
+            return;
+        }
+
+        // jika akses lokasi diijinkan
+        if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+            createLocationRequest();
+        }
     }
 
     @Override
@@ -124,7 +169,7 @@ public class OrderMapActivity extends AppCompatActivity implements OnMapReadyCal
     }
 
     /**
-     * Meminta user untuk mengaktifkan GPS ata location service
+     * Meminta user untuk mengaktifkan GPS atau location service
      */
     protected void createLocationRequest() {
         locationRequest = LocationRequest.create();

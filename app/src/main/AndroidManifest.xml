@@ -37,10 +37,12 @@
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
-                <category android:name="android.intent.category.DEFAULT" />
+                <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".activities.OrderReviewActivity" />
+        <activity
+            android:name=".activities.OrderReviewActivity"
+            android:theme="@style/AppTheme.FullScreen" />
         <activity
             android:name=".activities.ChatActivity"
             android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
@@ -50,7 +52,7 @@
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
-                <category android:name="android.intent.category.LAUNCHER" />
+                <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
         </activity>
     </application>
