@@ -45,7 +45,6 @@ public class HourMessageHolder extends BaseMessageHolder {
     @Override
     void bind(Message message) {
         hourMessage = (HourMessage) message;
-
     }
 
     private void showTimePicker() {

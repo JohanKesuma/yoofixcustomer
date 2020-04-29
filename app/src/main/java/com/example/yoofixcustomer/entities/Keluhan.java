@@ -1,5 +1,6 @@
 package com.example.yoofixcustomer.entities;
 
+import androidx.annotation.NonNull;
 import androidx.room.ColumnInfo;
 import androidx.room.Entity;
 import androidx.room.ForeignKey;
@@ -10,28 +11,35 @@ import androidx.room.PrimaryKey;
         childColumns = "perawatan_id"))
 public class Keluhan {
 
-    @PrimaryKey(autoGenerate = true)
-    public int keluhanId;
+    @PrimaryKey(autoGenerate = false)
+    @NonNull
+    public String keluhanId;
 
     @ColumnInfo(name = "perawatan_id")
-    public int perawatanId;
+    public String perawatanId;
 
     @ColumnInfo(name = "text")
     public String text;
 
-    public int getKeluhanId() {
+    public Keluhan(String keluhanId, String perawatanId, String text) {
+        this.keluhanId = keluhanId;
+        this.perawatanId = perawatanId;
+        this.text = text;
+    }
+
+    public String getKeluhanId() {
         return keluhanId;
     }
 
-    public void setKeluhanId(int keluhanId) {
+    public void setKeluhanId(String keluhanId) {
         this.keluhanId = keluhanId;
     }
 
-    public int getPerawatanId() {
+    public String getPerawatanId() {
         return perawatanId;
     }
 
-    public void setPerawatanId(int perawatanId) {
+    public void setPerawatanId(String perawatanId) {
         this.perawatanId = perawatanId;
     }
 

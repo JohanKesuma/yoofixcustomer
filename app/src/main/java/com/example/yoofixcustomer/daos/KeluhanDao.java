@@ -1,6 +1,7 @@
 package com.example.yoofixcustomer.daos;
 
 import androidx.room.Dao;
+import androidx.room.Insert;
 import androidx.room.Query;
 
 import com.example.yoofixcustomer.entities.Keluhan;
@@ -13,5 +14,8 @@ public interface KeluhanDao {
     List<Keluhan> getAll();
 
     @Query("SELECT * FROM keluhan WHERE perawatan_id = :perawatanId")
-    List<Keluhan> getByPerawatanId(int perawatanId);
+    List<Keluhan> getByPerawatanId(String perawatanId);
+
+    @Insert
+    void insertKeluhan(Keluhan keluhan);
 }

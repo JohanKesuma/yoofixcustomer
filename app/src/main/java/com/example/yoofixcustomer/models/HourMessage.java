@@ -12,7 +12,7 @@ public class HourMessage extends Message {
     }
 
     public void onClick(View v, String text) {
-        optionButtonClickListener.onOptionButtonClicked(v, text);
+        optionButtonClickListener.onOptionButtonClicked(v, text, Message.TYPE_FINISH);
     }
 
 

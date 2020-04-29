@@ -54,32 +54,41 @@
 
     </LinearLayout>
 
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/message_recycler_view"
+    <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent" />
+        android:layout_height="match_parent">
 
-<!--    <RelativeLayout-->
-<!--        android:orientation="horizontal"-->
-<!--        android:layout_width="match_parent"-->
-<!--        android:layout_height="60dp"-->
-<!--        android:layout_alignParentBottom="true"-->
-<!--        android:background="@drawable/rectangle_chat_pink_bottomnav">-->
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/message_recycler_view"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_above="@id/bottom_layout" />
 
-<!--        <ImageView-->
-<!--            android:layout_width="wrap_content"-->
-<!--            android:layout_height="wrap_content"-->
-<!--            android:src="@drawable/ic_icon_navigate_next"-->
-<!--            android:maxWidth="25dp"-->
-<!--            android:maxHeight="25dp"-->
-<!--            android:scaleType="fitCenter"-->
-<!--            android:adjustViewBounds="true"-->
-<!--            android:layout_alignParentRight="true"-->
-<!--            android:layout_centerInParent="true"-->
-<!--            android:gravity="center_vertical"-->
-<!--            android:layout_marginEnd="20dp">-->
-<!--        </ImageView>-->
+        <RelativeLayout
+            android:visibility="gone"
+            android:id="@+id/bottom_layout"
+            android:layout_width="match_parent"
+            android:layout_height="60dp"
+            android:layout_alignParentBottom="true"
+            android:background="@drawable/rectangle_chat_pink_bottomnav"
+            android:orientation="horizontal">
 
-<!--    </RelativeLayout>-->
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:layout_centerInParent="true"
+                android:layout_marginEnd="20dp"
+                android:adjustViewBounds="true"
+                android:gravity="center_vertical"
+                android:maxWidth="25dp"
+                android:maxHeight="25dp"
+                android:onClick="onNextButtonClicked"
+                android:scaleType="fitCenter"
+                android:src="@drawable/ic_icon_navigate_next" />
+
+        </RelativeLayout>
+    </RelativeLayout>
+
 
 </LinearLayout>

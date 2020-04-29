@@ -74,6 +74,12 @@ public class OrderMapActivity extends AppCompatActivity implements OnMapReadyCal
                 new AlertDialog.Builder(this)
                         .setTitle("Izin Akses Lokasi")
                         .setMessage("Lokasi diiperlukan")
+                        .setOnCancelListener(new DialogInterface.OnCancelListener() {
+                            @Override
+                            public void onCancel(DialogInterface dialog) {
+                                finish();
+                            }
+                        })
                         .setPositiveButton(R.string.ok, new DialogInterface.OnClickListener() {
                             @Override
                             public void onClick(DialogInterface dialogInterface, int i) {
@@ -101,6 +107,8 @@ public class OrderMapActivity extends AppCompatActivity implements OnMapReadyCal
         // jika akses lokasi diijinkan
         if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
             createLocationRequest();
+        } else {
+            finish();
         }
     }
 
@@ -224,7 +232,7 @@ public class OrderMapActivity extends AppCompatActivity implements OnMapReadyCal
         super.onActivityResult(requestCode, resultCode, data);
         if (requestCode == REQUEST_CHECK_SETTINGS) {
             if (resultCode == 0) { // jika user tidak mengijinkan lokasi
-                // TODO: 24/04/20 tambah aksi close activity
+                finish();
             } else {
                 initMap();
             }

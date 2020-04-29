@@ -5,8 +5,10 @@ import android.view.View;
 
 public abstract class OptionButton {
     protected String text;
+    protected String id;
 
-    public OptionButton(String text) {
+    public OptionButton(String id, String text) {
+        this.id = id;
         this.text = text;
     }
 

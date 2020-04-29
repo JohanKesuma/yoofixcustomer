@@ -16,6 +16,9 @@ import com.example.yoofixcustomer.CarouselItemDecorator;
 import com.example.yoofixcustomer.R;
 import com.example.yoofixcustomer.adapters.CarouselAdapter;
 import com.example.yoofixcustomer.adapters.MessageAdapter;
+import com.example.yoofixcustomer.databases.AppExecutors;
+import com.example.yoofixcustomer.databases.PerawatanDatabase;
+import com.example.yoofixcustomer.entities.Perawatan;
 import com.example.yoofixcustomer.models.Message;
 import com.example.yoofixcustomer.models.OptionButton;
 import com.example.yoofixcustomer.models.OptionButtonIntent;
@@ -23,6 +26,7 @@ import com.example.yoofixcustomer.models.OptionButtonMessage;
 import com.example.yoofixcustomer.models.TextMessage;
 
 import java.util.LinkedList;
+import java.util.List;
 
 public class BerandaFragment extends Fragment {
     private RecyclerView carouselRecyclerView;
@@ -31,6 +35,8 @@ public class BerandaFragment extends Fragment {
     private RecyclerView messageRecyclerView;
     private MessageAdapter messageAdapater;
     private RecyclerView.LayoutManager messageLayoutManager;
+
+    PerawatanDatabase perawatanDatabase;
 
     @Nullable
     @Override
@@ -85,25 +91,39 @@ public class BerandaFragment extends Fragment {
         carouselRecyclerView.addItemDecoration(new CarouselItemDecorator(getContext(), carouselWidthPixel, carouselHintPercent));
         //
 
-        // Init chat
         messageRecyclerView = view.findViewById(R.id.message_recycler_view);
 
         messageLayoutManager = new LinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL, false);
         messageRecyclerView.setLayoutManager(messageLayoutManager);
 
-        OptionButton[] optionButtons = {new OptionButtonIntent("Perawatan AC", getContext()), new OptionButtonIntent("Instalasi AC", getContext()),
-                new OptionButtonIntent("Jual AC", getContext()), new OptionButtonIntent("Bongkat AC", getContext())};
+        perawatanDatabase = PerawatanDatabase.getInstance(getContext());
+        AppExecutors.getInstance().diskIO().execute(new Runnable() {
+            @Override
+            public void run() {
+                List<Perawatan> perawatans = perawatanDatabase.perawatanDao().getAll();
+                OptionButton[] optionButtons = new OptionButton[perawatans.size()];
+                for (int i = 0; i < perawatans.size(); i++) {
+                    Perawatan perawatan = perawatans.get(i);
+                    optionButtons[i] = new OptionButtonIntent(perawatan.getPerawatanId(), perawatan.getText(), getContext());
+                }
 
-        LinkedList<Message> messages = new LinkedList<>();
-        messages.addLast(new TextMessage(Message.MESSAGE_IN, "Hallo"));
-        messages.addLast(new TextMessage(Message.MESSAGE_IN, "Dengan Yoofix disini,"));
-        messages.addLast(new TextMessage(Message.MESSAGE_IN, "Jasa apa yang kamu butuhkan?"));
-        messages.addLast(new OptionButtonMessage(Message.MESSAGE_IN, optionButtons));
+                LinkedList<Message> messages = new LinkedList<>();
+                messages.addLast(new TextMessage(Message.MESSAGE_IN, "Hallo"));
+                messages.addLast(new TextMessage(Message.MESSAGE_IN, "Dengan Yoofix disini,"));
+                messages.addLast(new TextMessage(Message.MESSAGE_IN, "Jasa apa yang kamu butuhkan?"));
+                messages.addLast(new OptionButtonMessage(Message.MESSAGE_IN, optionButtons));
+                updateUI(messages);
+            }
+        });
 
-        messageAdapater = new MessageAdapter(messages);
-        messageRecyclerView.setAdapter(messageAdapater);
+
         //
 
         return view;
+    }
+
+    private void updateUI(LinkedList<Message> messages) {
+        messageAdapater = new MessageAdapter(messages);
+        messageRecyclerView.setAdapter(messageAdapater);
     }
 }

@@ -20,15 +20,17 @@ public class OptionButtonChat extends OptionButton {
     private RecyclerView.Adapter messageAdapter;
 
     private OptionButtonClickListener optionButtonClickListener;
+    private int answerType;
 
-    public OptionButtonChat(String text, LinkedList<Message> messages, RecyclerView.Adapter adapter) {
-        super(text);
+    public OptionButtonChat(String id, String text, LinkedList<Message> messages, RecyclerView.Adapter adapter) {
+        super(id, text);
         this.messages = messages;
         this.messageAdapter = adapter;
     }
 
-    public OptionButtonChat(String text, LinkedList<Message> messages, RecyclerView.Adapter adapter, OptionButtonClickListener optionButtonClickListener) {
-        super(text);
+    public OptionButtonChat(String id, String text, LinkedList<Message> messages, RecyclerView.Adapter adapter, int answerType, OptionButtonClickListener optionButtonClickListener) {
+        super(id, text);
+        this.answerType = answerType;
         this.messages = messages;
         this.messageAdapter = adapter;
         this.optionButtonClickListener = optionButtonClickListener;
@@ -40,7 +42,7 @@ public class OptionButtonChat extends OptionButton {
 //        messages.set(position, new TextMessage(Message.MESSAGE_OUT, text));
 //        messageAdapter.notifyItemChanged(position);
         if (optionButtonClickListener != null) {
-            optionButtonClickListener.onOptionButtonClicked(view, text);
+            optionButtonClickListener.onOptionButtonClicked(view, text, answerType);
         }
     }
 
@@ -49,6 +51,6 @@ public class OptionButtonChat extends OptionButton {
     }
 
     public interface OptionButtonClickListener {
-        public void onOptionButtonClicked(View v, String text);
+        public void onOptionButtonClicked(View v, String text, int answerType);
     }
 }

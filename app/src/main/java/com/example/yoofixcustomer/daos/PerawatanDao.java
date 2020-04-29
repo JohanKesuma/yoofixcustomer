@@ -15,7 +15,7 @@ public interface PerawatanDao {
     List<Perawatan> getAll();
 
     @Query("SELECT * FROM perawatan WHERE perawatanId = :id")
-    Perawatan getById(int id);
+    Perawatan getById(String id);
 
     @Insert
     void insertPerawatan(Perawatan perawatan);

@@ -4,6 +4,11 @@ package com.example.yoofixcustomer.models;
  * BaseClass untuk Message
  */
 public class Message {
+    public static final int TYPE_FINISH = 0;
+    public static final int TYPE_OPTION = 1;
+    public static final int TYPE_DATE = 2;
+    public static final int TYPE_HOUR = 3;
+
 
     /**
      * Tipe pesan yang diterima oleh user saat ini

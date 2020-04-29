@@ -34,6 +34,6 @@ public class DateMessage extends Message {
     }
 
     public void onClick(View v, String text) {
-        optionButtonClickListener.onOptionButtonClicked(v, text);
+        optionButtonClickListener.onOptionButtonClicked(v, text, Message.TYPE_HOUR);
     }
 }

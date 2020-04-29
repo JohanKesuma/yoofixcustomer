@@ -9,13 +9,14 @@ import androidx.room.PrimaryKey;
 @Entity
 public class Perawatan {
 
-    @PrimaryKey(autoGenerate = true)
-    private int perawatanId;
+    @PrimaryKey(autoGenerate = false)
+    @NonNull
+    private String perawatanId;
 
     @ColumnInfo(name = "text")
     private String text;
 
-    public Perawatan(int perawatanId, String text) {
+    public Perawatan(String perawatanId, String text) {
         this.perawatanId = perawatanId;
         this.text = text;
     }
@@ -31,11 +32,11 @@ public class Perawatan {
         return text;
     }
 
-    public int getPerawatanId() {
+    public String getPerawatanId() {
         return perawatanId;
     }
 
-    public void setPerawatanId(int perawatanId) {
+    public void setPerawatanId(String perawatanId) {
         this.perawatanId = perawatanId;
     }
 
